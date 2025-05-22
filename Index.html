@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pixel Game with High Score</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="Style battle.css" />
+</head>
+<body>
+  <div id="game-container">
+    <div class="info">
+      <div>Score: <span id="score">0</span></div>
+      <div>❤️ <span id="lives" class="hearts">❤️❤️❤️</span></div>
+      <div>⏱ <span id="timer">60</span>s</div>
+    </div>
+    <canvas id="game" width="64" height="64"></canvas>
+    <div class="controls">
+      <div class="empty"></div>
+      <div class="btn" onclick="move('up')">↑</div>
+      <div class="empty"></div>
+      <div class="btn" onclick="move('left')">←</div>
+      <div class="btn" onclick="move('down')">↓</div>
+      <div class="btn" onclick="move('right')">→</div>
+    </div>
+    <button class="pause-btn" onclick="togglePause()">⏸ Pause</button>
+  </div>
+
+  <div id="end-screen">
+    <h2 id="end-message">Game Over!</h2>
+    <p>🏆 Final Score: <span id="final-score"></span></p>
+    <p>💯 Best Score: <span id="best-score"></span></p>
+    <button onclick="restartGame()">🔁 Play Again</button>
+  </div>
+  <script src="Movement.js"></script>
+</body>
+</html>
