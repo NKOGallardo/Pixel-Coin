@@ -165,3 +165,32 @@ draw();
 updateHearts();
 const enemyInterval = setInterval(moveEnemies, 1000);
 const timerInterval = setInterval(countdown, 1000);
+
+if (!/Mobi|Android/i.test(navigator.userAgent)) {
+  document.querySelector('.controls').style.display = 'none';
+}
+
+document.addEventListener("keydown", (e) => {
+  switch (e.key) {
+    case "ArrowUp":
+    case "w":
+      move("up");
+      break;
+    case "ArrowDown":
+    case "s":
+      move("down");
+      break;
+    case "ArrowLeft":
+    case "a":
+      move("left");
+      break;
+    case "ArrowRight":
+    case "d":
+      move("right");
+      break;
+    case " ":
+      togglePause();
+      break;
+  }
+});
+
