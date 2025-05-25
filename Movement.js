@@ -1,3 +1,24 @@
+// Make sure to include jwt-decode.js in your HTML before this script
+
+// Google Sign-In Setup
+function handleCredentialResponse(response) {
+  const userData = jwt_decode(response.credential);
+  alert(`Welcome, ${userData.name}!`);
+  document.getElementById("user-info").textContent = `Welcome, ${userData.name}`;
+}
+
+window.onload = function () {
+  google.accounts.id.initialize({
+    client_id: "726534222149-p18j5it0f3ij3vrtvlhrou92olfsae87.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
+  google.accounts.id.renderButton(
+    document.getElementById("google-signin"),
+    { theme: "outline", size: "large" }
+  );
+};
+
+// Game Code
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const scoreDisplay = document.getElementById("score");
@@ -41,8 +62,10 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = player.color;
   ctx.fillRect(player.x * tileSize, player.y * tileSize, tileSize, tileSize);
+
   ctx.fillStyle = coin.color;
   ctx.fillRect(coin.x * tileSize, coin.y * tileSize, tileSize, tileSize);
+
   enemies.forEach(e => {
     ctx.fillStyle = e.color;
     ctx.fillRect(e.x * tileSize, e.y * tileSize, tileSize, tileSize);
@@ -59,7 +82,9 @@ function movePlayer(dir) {
   if (dir === "down" && player.y < gridSize - 1) player.y++;
   if (dir === "left" && player.x > 0) player.x--;
   if (dir === "right" && player.x < gridSize - 1) player.x++;
-  checkCoin(); checkEnemy(); draw();
+  checkCoin();
+  checkEnemy();
+  draw();
 }
 
 function move(dir) { movePlayer(dir); }
@@ -78,7 +103,10 @@ function checkEnemy() {
     if (player.x === e.x && player.y === e.y) {
       lives--;
       updateHearts();
-      if (lives <= 0) endGame("Game Over!");
+      if (lives <= 0) {
+        endGame("Game Over!");
+        return; // Exit early
+      }
     }
   }
 }
@@ -93,7 +121,8 @@ function moveEnemies() {
     if (d === "left" && e.x > 0) e.x--;
     if (d === "right" && e.x < gridSize - 1) e.x++;
   });
-  checkEnemy(); draw();
+  checkEnemy();
+  draw();
 }
 
 function countdown() {
@@ -108,51 +137,21 @@ function togglePause() {
   document.querySelector(".pause-btn").textContent = paused ? "▶ Resume" : "⏸ Pause";
 }
 
-function restartGame() {
-  location.reload();
-}
-
-// Google Sign-In
-let userEmail = null;
-
-function handleCredentialResponse(response) {
-  const data = jwt_decode(response.credential);
-  userEmail = data.email;
-
-  document.getElementById('user-name').textContent = `Welcome, ${data.name}`;
-  document.getElementById('user-pic').src = data.picture;
-  document.getElementById('user-info').style.display = 'block';
-  document.getElementById('login-area').style.display = 'none';
-
-  const savedScore = localStorage.getItem(`highscore-${userEmail}`);
-  if (savedScore) {
-    bestScoreDisplay.textContent = savedScore;
-  }
-}
-
 function endGame(message) {
   clearInterval(enemyInterval);
   clearInterval(timerInterval);
-
   finalScoreDisplay.textContent = score;
-
-  let best = 0;
-  if (userEmail) {
-    best = localStorage.getItem(`highscore-${userEmail}`) || 0;
-    if (score > best) {
-      localStorage.setItem(`highscore-${userEmail}`, score);
-    }
-    bestScoreDisplay.textContent = localStorage.getItem(`highscore-${userEmail}`);
-  } else {
-    best = localStorage.getItem("highscore") || 0;
-    if (score > best) {
-      localStorage.setItem("highscore", score);
-    }
-    bestScoreDisplay.textContent = localStorage.getItem("highscore");
+  const best = parseInt(localStorage.getItem("highscore")) || 0;
+  if (score > best) {
+    localStorage.setItem("highscore", score);
   }
-
+  bestScoreDisplay.textContent = localStorage.getItem("highscore");
   document.getElementById("end-message").textContent = message;
   endScreen.style.display = "flex";
+}
+
+function restartGame() {
+  location.reload();
 }
 
 document.addEventListener("keydown", (e) => {
@@ -162,14 +161,6 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") move("right");
 });
 
-// Load jwt-decode if not present
-if (typeof jwt_decode === 'undefined') {
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js';
-  document.head.appendChild(script);
-}
-
-// Init game
 draw();
 updateHearts();
 const enemyInterval = setInterval(moveEnemies, 1000);
