@@ -13,7 +13,9 @@ html, body {
   font-family: 'Courier New', monospace;
   touch-action: none;
 }
-
+.btn-lay {
+  float: right;
+}
 #game-container {
   display: flex;
   flex-direction: column;
