@@ -124,6 +124,65 @@ canvas {
   cursor: pointer;
 }
 
+/* Homepage Specific Styles */
+.header {
+  text-align: center;
+  padding: 20px 10px;
+  color: white;
+}
+.tagline {
+  font-size: 16px;
+  color: #aaa;
+}
+.login-area {
+  text-align: center;
+  margin: 10px;
+}
+.user-info {
+  text-align: center;
+  color: white;
+  margin-bottom: 10px;
+}
+.user-info img {
+  width: 40px;
+  border-radius: 50%;
+}
+.main-content {
+  padding: 20px;
+  color: white;
+}
+.instructions h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.instructions ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+.start-game {
+  text-align: center;
+  margin-top: 20px;
+}
+.start-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #333;
+  border: 2px solid white;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 18px;
+}
+.start-button:hover {
+  background: #666;
+}
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  font-size: 14px;
+}
+
 /* Desktop styles — for wider and taller screens */
 @media (min-width: 768px) and (min-height: 600px) {
   html, body {
@@ -153,40 +212,18 @@ canvas {
     font-size: 20px;
     padding: 12px 24px;
   }
-}
-@media (min-width: 768px) and (min-height: 600px) {
-  html, body {
-    touch-action: auto;
+
+  .instructions h2 {
+    font-size: 24px;
   }
 
-  canvas {
-    width: 512px;
-    height: 512px;
-  }
-
-  .info {
-    display: flex;
+  .start-button {
     font-size: 20px;
-    gap: 24px;
-    color: white;
+    padding: 12px 28px;
   }
 
-  .hearts {
-    color: red !important; /* Ensure it stays red even if overridden */
-    font-size: 20px;
-  }
-
-  .controls {
-    display: none;
-  }
-
-  .pause-btn, .Button {
-    font-size: 18px;
-    padding: 10px 24px;
-  }
-
-  #end-screen button {
-    font-size: 20px;
-    padding: 12px 24px;
+  .footer {
+    font-size: 16px;
   }
 }
+
