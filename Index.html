@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel-Coin - Home</title>
+  <link rel="stylesheet" href="Style battle.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <h1>Welcome to Pixel-Coin</h1>
+    <p class="tagline">Collect coins, dodge enemies, and beat the high score!</p>
+  </header>
+
+  <!-- Google Sign-In -->
+  <div id="login-area" class="login-area">
+    <div id="google-signin"></div>
+  </div>
+
+  <!-- User Info -->
+  <div id="user-info" class="user-info" style="display:none;">
+    <img id="user-pic" alt="User Picture">
+    <p id="user-name"></p>
+  </div>
+
+  <main class="main-content">
+    <section class="instructions">
+      <h2>How to Play</h2>
+      <ul>
+        <li>Use arrow keys or on-screen buttons to move.</li>
+        <li>Collect yellow coins to score points.</li>
+        <li>Avoid green enemies. Lose all hearts = Game Over.</li>
+        <li>Score as high as possible before time runs out!</li>
+      </ul>
+    </section>
+
+    <section class="start-game">
+      <a href="game.html" class="start-button">▶ Start Game</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Pixel-Coin by Ntobeko</p>
+  </footer>
+
+  <script>
+    function handleCredentialResponse(response) {
+      const data = jwt_decode(response.credential);
+      document.getElementById("user-info").style.display = "block";
+      document.getElementById("user-name").textContent = `Welcome, ${data.name}`;
+      document.getElementById("user-pic").src = data.picture;
+      document.getElementById("login-area").style.display = "none";
+    }
+
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: "726534222149-p18j5it0f3ij3vrtvlhrou92olfsae87.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById("google-signin"),
+        { theme: "outline", size: "large" }
+      );
+    };
+  </script>
+
+  <script src="Movement.js"></script>
+</body>
+</html>
