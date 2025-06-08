@@ -4,14 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pixel-Coin - Home</title>
-  <link rel="stylesheet" href="Style battle.css">
+  <meta name="description" content="Pixel-Coin: Collect coins, dodge enemies, and beat the high score!">
+  <link rel="stylesheet" href="Style battle.css"><!-- Consider renaming to style-battle.css -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 </head>
-<body>
+<body class="all">
+  <div class="content-wrapper">
+    <noscript>
+    <div style="color: red; text-align: center;">
+      This site requires JavaScript to function properly. Please enable JavaScript in your browser.
+    </div>
+  </noscript>
   <header class="header">
     <h1>Welcome to Pixel-Coin</h1>
-    <p>Created by <a href="https://nkogallardo.github.io/Personal-website/my%20web.html" style="text-decoration: none; color:white;">Ntobeko</a></p>
+    <p>Created by <a href="https://nkogallardo.github.io/Personal-website/my%20web.html" style="text-decoration: none; color:white; border: 1px solid;">Ntobeko</a></p>
     <p class="tagline">Collect coins, dodge enemies, and beat the high score!</p>
   </header>
 
@@ -41,10 +48,15 @@
       <a href="game.html" class="start-button">▶ Start Game</a>
     </section>
   </main>
+  </div>
 
   <footer class="footer">
     <p>&copy; 2025 Pixel-Coin by <a href="https://nkogallardo.github.io/Personal-website/my%20web.html">Ntobeko</a></p>
   </footer>
+  
+</body>
+<body>
+  
 
   <script>
     function handleCredentialResponse(response) {
@@ -52,6 +64,7 @@
       document.getElementById("user-info").style.display = "block";
       document.getElementById("user-name").textContent = `Welcome, ${data.name}`;
       document.getElementById("user-pic").src = data.picture;
+      document.getElementById("user-pic").alt = `${data.name}'s profile picture`; // Accessibility improvement
       document.getElementById("login-area").style.display = "none";
     }
 
