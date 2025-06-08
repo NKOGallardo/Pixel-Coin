@@ -4,27 +4,28 @@
   <meta charset="UTF-8" />
   <title>Pixel Game with High Score</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <link rel="stylesheet" href="Style battle.css" />
+  <link rel="stylesheet" href="Style battle.css"/>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
   <meta name="google-signin-client_id" content="726534222149-p18j5it0f3ij3vrtvlhrou92olfsae87.apps.googleusercontent.com">
 </head>
-<body>
+<body class="all">
+  <div class="content-wrapper">
 
   <!-- Google Sign-In Button -->
-  <div id="login-area" style="text-align:center; margin-top:10px;">
+  <div id="login-area" style="text-align:center; margin-top:0px;">
     <div id="google-signin"></div>
   </div>
 
   <!-- User Info Display -->
-  <div id="user-info" style="display:none; color:white; text-align:center; margin-bottom:10px;">
+  <div id="user-info" style="display:none; color:white; text-align:center; margin-bottom:0px;">
     <img id="user-pic" style="width:40px; border-radius:50%;" />
     <p id="user-name"></p>
   </div>
   <div id="game-container">
     <div class="info">
       <div>Score: <span id="score">0</span></div>
-      <div>❤️ <span id="lives" class="hearts">❤️❤️❤️</span></div>
+      <div><span id="lives" class="hearts">❤️❤️❤️</span></div>
       <div>⏱ <span id="timer">60</span>s</div>
     </div>
     <canvas id="game" width="64" height="64"></canvas>
@@ -53,6 +54,10 @@
     <p>💯 Best Score: <span id="best-score"></span></p>
     <button onclick="restartGame()">🔁 Play Again</button>
   </div> 
+    <footer class="footer">
+    <p>&copy; 2025 Pixel-Coin by <a href="https://nkogallardo.github.io/Personal-website/my%20web.html">Ntobeko</a></p>
+  </footer>
+  </div>
 
   <!-- Google Sign-In Logic -->
   <script>
