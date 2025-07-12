@@ -199,6 +199,7 @@ canvas {
   text-decoration: none;
   border-radius: 8px;
   font-size: 18px;
+  margin-top: 20px;
 }
 .start-button:hover {
   background: #666;
@@ -228,7 +229,7 @@ canvas {
   }
 
   .controls {
-    display: none; /* Hide on-screen controls for desktop */
+    display: none; 
   }
 
   .pause-btn, .Button {
@@ -254,4 +255,50 @@ canvas {
     font-size: 16px;
   }
 }
+/* ...existing code... */
 
+/* Mobile styles — for small screens */
+@media (max-width: 480px) {
+  .main-content {
+    padding: 10px;
+  }
+
+  .header {
+    padding: 12px 4px;
+    font-size: 1.1rem;
+  }
+
+  .info {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .controls {
+    grid-template-columns: 48px 48px 48px;
+    grid-template-rows: 48px 48px;
+    gap: 6px;
+    margin-top: 6px;
+    margin-bottom: 70px;
+  }
+
+  .btn, .pause-btn, .Button {
+    font-size: 18px;
+    padding: 6px 12px;
+  }
+
+  .user-info img {
+    width: 32px;
+  }
+
+  .start-button {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .footer {
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
+/* ...existing code... */
