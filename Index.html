@@ -1,73 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel-Coin - Home</title>
-  <meta name="description" content="Pixel-Coin: Collect coins, dodge enemies, and beat the high score!">
-  <link rel="stylesheet" href="Style battle.css"><!-- Consider renaming to style-battle.css -->
+  <meta charset="UTF-8" />
+  <title>Pixel Game with High Score</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="Game.Css"/>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  <meta name="google-signin-client_id" content="726534222149-p18j5it0f3ij3vrtvlhrou92olfsae87.apps.googleusercontent.com">
 </head>
-
-<!---- I hate the design(looks) but im planing ----->
 <body class="all">
   <div class="content-wrapper">
-    <noscript>
-    <div style="color: red; text-align: center;">
-      This site requires JavaScript to function properly. Please enable JavaScript in your browser.
-    </div>
-  </noscript>
-  <header class="header">
-    <h1>Welcome to Pixel-Coin</h1>
-    <p>Created by <a href="https://nkogallardo.github.io/Personal-website/my%20web.html" style="text-decoration: none; color:white; border: 1px solid;">Ntobeko</a></p>
-    <p class="tagline">Collect coins, dodge enemies, and beat the high score!</p>
-  </header>
 
-  <!-- Google Sign-In -->
-  <div id="login-area" class="login-area">
+  <!-- Google Sign-In Button -->
+  <div id="login-area" style="text-align:center; margin-top:0px;">
     <div id="google-signin"></div>
   </div>
 
-  <!-- User Info -->
-  <div id="user-info" class="user-info" style="display:none;">
-    <img id="user-pic" alt="User Picture">
+  <!-- User Info Display -->
+  <div id="user-info" style="display:none; color:white; text-align:center; margin-bottom:0px;">
+    <img id="user-pic" style="width:40px; border-radius:50%;" />
     <p id="user-name"></p>
   </div>
-
-  <main class="main-content">
-    <section class="instructions">
-      <p>The game is only made for phone not desktop</p>
-      <h2>How to Play</h2>
-      <ul>
-        <li>Use arrow keys or on-screen buttons to move.</li>
-        <li>Collect yellow coins to score points.</li>
-        <li>Avoid green enemies. Lose all hearts = Game Over.</li>
-        <li>Score as high as possible before time runs out!</li>
-      </ul>
-    </section>
-
-    <section class="start-game">
-      <a href="game.html" class="start-button">▶ Start Game</a>
-    </section>
-  </main>
+  <div id="game-container">
+    <div class="info">
+      <div>Score: <span id="score">0</span></div>
+      <div><span id="lives" class="hearts">❤️❤️❤️</span></div>
+      <div>⏱ <span id="timer">60</span>s</div>
+    </div>
+    <canvas id="game" width="64" height="64"></canvas>
+    <div class="controls">
+      <div class="empty"></div>
+      <div class="btn" onclick="move('up')">↑</div>
+      <div class="empty"></div>
+      <div class="btn" onclick="move('left')">←</div>
+      <div class="btn" onclick="move('down')">↓</div>
+      <div class="btn" onclick="move('right')">→</div>
+    </div>
+    <div class="btn-lay">
+    <button class="pause-btn" onclick="togglePause()">⏸ Pause</button>
+    <a href="Index.html">         
+    <button class="start-button">Home</button>
+  </a>
+    <a href="https://github.com/NKOGallardo/Personal-website/issues">
+    <button class="Button">Issues</button>
+    </a>
+    </div>
   </div>
 
-  <footer class="footer">
+  <div id="end-screen">
+    <h2 id="end-message">Game Over!</h2>
+    <p>🏆 Final Score: <span id="final-score"></span></p>
+    <p>💯 Best Score: <span id="best-score"></span></p>
+    <button onclick="restartGame()">🔁 Play Again</button>
+  </div> 
+    <footer class="footer">
     <p>&copy; 2025 Pixel-Coin by <a href="https://nkogallardo.github.io/Personal-website/my%20web.html">Ntobeko</a></p>
   </footer>
-  
-</body>
-<body>
-  
+  </div>
 
+  <!-- Google Sign-In Logic -->
   <script>
     function handleCredentialResponse(response) {
       const data = jwt_decode(response.credential);
       document.getElementById("user-info").style.display = "block";
       document.getElementById("user-name").textContent = `Welcome, ${data.name}`;
       document.getElementById("user-pic").src = data.picture;
-      document.getElementById("user-pic").alt = `${data.name}'s profile picture`; // Accessibility improvement
       document.getElementById("login-area").style.display = "none";
     }
 
@@ -84,6 +82,7 @@
     };
   </script>
 
+  <!-- Game Logic -->
   <script src="Movement.js"></script>
 </body>
 </html>
